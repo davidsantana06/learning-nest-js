@@ -9,6 +9,7 @@ import { PrismaRocketMembersRepository } from './repositories/prisma/prisma-rock
   imports: [],
   controllers: [AppController],
   providers: [
+    AppService,
     PrismaService,
     {
       provide: RocketMembersRepository,
