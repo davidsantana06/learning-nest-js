@@ -11,7 +11,7 @@ datasource db {
 }
 
 model RocketTeamMember {
-  id       String @id
-  name     String
-  function String
+  id         String @id @default(uuid())
+  name       String
+  profession String
 }
