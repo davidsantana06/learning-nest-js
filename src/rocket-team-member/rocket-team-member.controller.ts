@@ -39,11 +39,6 @@ export class RocketTeamMemberController {
     @Body() updateRocketTeamMemberDto: UpdateRocketTeamMemberDto,
     @Res() res: Response,
   ) {
-    const rocketTeamMemberExists = await this.rocketTeamMemberService.findOne(id);
-    if (!rocketTeamMemberExists)
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Membro Rocket não encontrado' });
     await this.rocketTeamMemberService.update(id, updateRocketTeamMemberDto);
     return res
       .status(HttpStatus.OK)
@@ -52,11 +47,6 @@ export class RocketTeamMemberController {
 
   @Delete('/:id')
   async remove(@Param('id') id: string, @Res() res: Response) {
-    const rocketTeamMemberExists = await this.rocketTeamMemberService.findOne(id);
-    if (!rocketTeamMemberExists)
-      return res
-        .status(HttpStatus.NOT_FOUND)
-        .json({ message: 'Membro Rocket não encontrado' });
     await this.rocketTeamMemberService.remove(id);
     return res
       .status(HttpStatus.OK)
