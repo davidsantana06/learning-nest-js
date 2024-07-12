@@ -20,17 +20,17 @@ export class RocketTeamMemberController {
     private readonly rocketTeamMemberService: RocketTeamMemberService,
   ) {}
 
-  @Get('/')
-  async findMany() {
-    return await this.rocketTeamMemberService.findMany();
-  }
-
   @Post('/')
-  async create(@Body() createRocketTeamMemberDto: CreateRocketTeamMemberDto) {
-    const createdUser = await this.rocketTeamMemberService.create(
+  create(@Body() createRocketTeamMemberDto: CreateRocketTeamMemberDto) {
+    const createdUser = this.rocketTeamMemberService.create(
       createRocketTeamMemberDto,
     );
     return createdUser;
+  }
+
+  @Get('/')
+  findAll() {
+    return this.rocketTeamMemberService.findAll();
   }
 
   @Patch('/:id')
@@ -39,8 +39,7 @@ export class RocketTeamMemberController {
     @Body() updateRocketTeamMemberDto: UpdateRocketTeamMemberDto,
     @Res() res: Response,
   ) {
-    const rocketTeamMemberExists =
-      await this.rocketTeamMemberService.findUnique(id);
+    const rocketTeamMemberExists = await this.rocketTeamMemberService.findOne(id);
     if (!rocketTeamMemberExists)
       return res
         .status(HttpStatus.NOT_FOUND)
@@ -52,14 +51,13 @@ export class RocketTeamMemberController {
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id: string, @Res() res: Response) {
-    const rocketTeamMemberExists =
-      await this.rocketTeamMemberService.findUnique(id);
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    const rocketTeamMemberExists = await this.rocketTeamMemberService.findOne(id);
     if (!rocketTeamMemberExists)
       return res
         .status(HttpStatus.NOT_FOUND)
         .json({ message: 'Membro Rocket não encontrado' });
-    await this.rocketTeamMemberService.delete(id);
+    await this.rocketTeamMemberService.remove(id);
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Membro Rocket deletado' });

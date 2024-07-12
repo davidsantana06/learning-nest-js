@@ -10,11 +10,11 @@ export class RocketTeamMemberService {
     private readonly rocketTeamMemberRepository: RocketTeamMemberRepository,
   ) {}
 
-  findMany(): Promise<RocketTeamMember[]> {
+  findAll(): Promise<RocketTeamMember[]> {
     return this.rocketTeamMemberRepository.findMany();
   }
 
-  findUnique(id: string): Promise<RocketTeamMember> {
+  findOne(id: string): Promise<RocketTeamMember> {
     return this.rocketTeamMemberRepository.findUnique(id);
   }
 
@@ -34,7 +34,7 @@ export class RocketTeamMemberService {
     );
   }
 
-  async delete(id: string): Promise<RocketTeamMember> {
+  async remove(id: string): Promise<RocketTeamMember> {
     return this.rocketTeamMemberRepository.delete(id);
   }
 }
