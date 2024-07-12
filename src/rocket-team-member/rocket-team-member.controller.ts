@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -22,10 +23,7 @@ export class RocketTeamMemberController {
 
   @Post('/')
   create(@Body() createRocketTeamMemberDto: CreateRocketTeamMemberDto) {
-    const createdUser = this.rocketTeamMemberService.create(
-      createRocketTeamMemberDto,
-    );
-    return createdUser;
+    return this.rocketTeamMemberService.create(createRocketTeamMemberDto);
   }
 
   @Get('/')
@@ -33,21 +31,26 @@ export class RocketTeamMemberController {
     return this.rocketTeamMemberService.findAll();
   }
 
+  @Get('/:id')
+  findOne(@Req() req: Request) {
+    return req['rocketTeamMember'];
+  }
+
   @Patch('/:id')
-  async update(
+  update(
     @Param('id') id: string,
     @Body() updateRocketTeamMemberDto: UpdateRocketTeamMemberDto,
     @Res() res: Response,
   ) {
-    await this.rocketTeamMemberService.update(id, updateRocketTeamMemberDto);
+    this.rocketTeamMemberService.update(id, updateRocketTeamMemberDto);
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Membro Rocket atualizado' });
   }
 
   @Delete('/:id')
-  async remove(@Param('id') id: string, @Res() res: Response) {
-    await this.rocketTeamMemberService.remove(id);
+  remove(@Param('id') id: string, @Res() res: Response) {
+    this.rocketTeamMemberService.remove(id);
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Membro Rocket deletado' });

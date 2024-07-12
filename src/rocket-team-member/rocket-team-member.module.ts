@@ -20,6 +20,7 @@ export class RocketTeamMemberModule implements NestModule {
     consumer
       .apply(FoundRocketTeamMemberMiddleware)
       .forRoutes(
+        { path: '/rocket-team-member/:id', method: RequestMethod.GET },
         { path: '/rocket-team-member/:id', method: RequestMethod.PATCH },
         { path: '/rocket-team-member/:id', method: RequestMethod.DELETE },
       );
