@@ -22,13 +22,13 @@ export class RocketTeamMemberController {
   ) {}
 
   @Post('/')
-  create(@Body() createRocketTeamMemberDto: CreateRocketTeamMemberDto) {
-    return this.rocketTeamMemberService.create(createRocketTeamMemberDto);
+  async create(@Body() createRocketTeamMemberDto: CreateRocketTeamMemberDto) {
+    return await this.rocketTeamMemberService.create(createRocketTeamMemberDto);
   }
 
   @Get('/')
-  findAll() {
-    return this.rocketTeamMemberService.findAll();
+  async findAll() {
+    return await this.rocketTeamMemberService.findAll();
   }
 
   @Get('/:id')
@@ -37,20 +37,20 @@ export class RocketTeamMemberController {
   }
 
   @Patch('/:id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateRocketTeamMemberDto: UpdateRocketTeamMemberDto,
     @Res() res: Response,
   ) {
-    this.rocketTeamMemberService.update(id, updateRocketTeamMemberDto);
+    await this.rocketTeamMemberService.update(id, updateRocketTeamMemberDto);
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Membro Rocket atualizado' });
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: string, @Res() res: Response) {
-    this.rocketTeamMemberService.remove(id);
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    await this.rocketTeamMemberService.remove(id);
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Membro Rocket deletado' });
